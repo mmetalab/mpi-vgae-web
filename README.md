@@ -1,2 +1,2 @@
-# mpi-vage
-Web application of mpi-vage
+# mpi-vgae
+Web application of mpi-vgae
