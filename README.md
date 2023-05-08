@@ -1,2 +1,2 @@
-# ccs_mpnn
-Prediction of collision section values by MPNN model
+# mpi-vage
+Web application of mpi-vage
