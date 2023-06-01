@@ -61,12 +61,12 @@ def generate_edge_pair(metabolites,proteins,node_feats,adj_true):
     mets_index = []
     for i in metabolites:
         if i in node_dict:
-         print(i)
+         # print(i)
          mets_index.append(node_dict[i])
     protein_index = []
     for i in proteins:
         if i in node_dict:
-         print(i)
+         # print(i)
          protein_index.append(node_dict[i])
     test_pair = []
     true_pair = []
@@ -134,39 +134,45 @@ mpi_button = st.button("Click here to predict MPI") # Give button a variable nam
 if mpi_button: # Make button a condition.
    st.text("Start predicting MPI")
 
-   # metabolites = feature_df[feature_df['Type']=='Metabolite']['HMDB ID'].tolist()
-   # proteins = feature_df[feature_df['Type']=='Protein']['Name'].tolist()
-   metabolites = node_feats['dbid'].tolist()[:10]
-   proteins = node_feats['dbid'].tolist()[-10:]
+   metabolites = feature_df[feature_df['Type']=='Metabolite']['HMDB ID'].tolist()
+   proteins = feature_df[feature_df['Type']=='Protein']['Name'].tolist()
+   print('number of metabolites and proteins')
+   print(len(metabolites),len(proteins))
 
-   print(proteins)
-   node_dict, test_pair,true_pair = generate_edge_pair(metabolites,proteins,node_feats,adj_true)
-   print(test_pair)
-   real_apply_g = dgl.graph((test_pair[:,0], test_pair[:,1]), num_nodes=dg.number_of_nodes(),device=device)
-   with torch.no_grad():
-      pos_score = pred(real_apply_g, model)
-      print(pos_score.shape)
+   # metabolites = node_feats['dbid'].tolist()[:10]
+   # proteins = node_feats['dbid'].tolist()[-10:]
+   
+   node_dict,test_pair,true_pair = generate_edge_pair(metabolites,proteins,node_feats,adj_true)
+   chk = len(test_pair.shape)
+   if chk == 1: 
+      st.text("No available edges found in the MPI network")
+   else:
+      real_apply_g = dgl.graph((test_pair[:,0], test_pair[:,1]), num_nodes=dg.number_of_nodes(), device=device)
+      print(test_pair)
+      with torch.no_grad():
+         pos_score = pred(real_apply_g, model)
 
-   test_result = generate_result(pos_score,true_pair,test_pair,node_feats)
-   print(test_result.head())
+      test_result = generate_result(pos_score,true_pair,test_pair,node_feats)
+      print(test_result.head())
 
-   st.text("Finished")
-   st.write('Prediction result')
+      st.text("Finished")
+      st.write('Prediction result')
 
-   gd = GridOptionsBuilder.from_dataframe(test_result)
-   gd.configure_side_bar(filters_panel=True)
-   gd.configure_pagination(enabled=True,paginationAutoPageSize=False,paginationPageSize=5)
-   gd.configure_default_column(groupable=True)
-   AgGrid(
-      test_result,
-      gridOptions=gd.build(),
-   )
-   # st.dataframe(test_result.head())
-   csv_result = convert_df(test_result)
-   st.download_button(
-      "Press to download result",
-      csv_result,
-      "ccs_prediction.csv",
-      "text/csv",
-      key='download-csv'
-   )
+      gd = GridOptionsBuilder.from_dataframe(test_result)
+      gd.configure_side_bar(filters_panel=True)
+      gd.configure_pagination(enabled=True,paginationAutoPageSize=False,paginationPageSize=5)
+      gd.configure_default_column(groupable=True)
+      AgGrid(
+         test_result,
+         gridOptions=gd.build(),
+      )
+
+      # st.dataframe(test_result.head())
+      csv_result = convert_df(test_result)
+      st.download_button(
+         "Press to download result",
+         csv_result,
+         "ccs_prediction.csv",
+         "text/csv",
+         key='download-csv'
+      )

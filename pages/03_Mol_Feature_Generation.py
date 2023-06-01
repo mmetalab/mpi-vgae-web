@@ -63,17 +63,19 @@ st.markdown('<div style="text-align: justify;"> Select an organism to compute th
 </div>', unsafe_allow_html=True)
 
 
-mode_dict = {'Homo sapiens':"Homo_sapiens",
-'Mus musculus':"Mus_musculus",
-'Rattus norvegicus':"Rattus_norvegicus",
-'Escherichia coli':"Escherichia_coli",
-'Bos taurus':"Bos_taurus",
-'Pseudomonas aeruginosa':"Pseudomonas_aeruginosa",
-'Arabidopsis thaliana':"Arabidopsis_thaliana",
-'Saccharomyces cerevisiae':"Saccharomyces_cerevisiae",
-'Drosophila melanogaster':"Drosophila_melanogaster",
-'Caenorhabditis elegans':"Caenorhabditis_elegans",
-'Global':'All'}
+# mode_dict = {'Homo sapiens':"Homo_sapiens",
+# 'Mus musculus':"Mus_musculus",
+# 'Rattus norvegicus':"Rattus_norvegicus",
+# 'Escherichia coli':"Escherichia_coli",
+# 'Bos taurus':"Bos_taurus",
+# 'Pseudomonas aeruginosa':"Pseudomonas_aeruginosa",
+# 'Arabidopsis thaliana':"Arabidopsis_thaliana",
+# 'Saccharomyces cerevisiae':"Saccharomyces_cerevisiae",
+# 'Drosophila melanogaster':"Drosophila_melanogaster",
+# 'Caenorhabditis elegans':"Caenorhabditis_elegans",
+# 'Global':'All'}
+
+mode_dict = {'Homo sapiens':'All'}
 
 mode = st.selectbox(
     'Due to computing limitations, select one organism at a time.',
