@@ -156,4 +156,7 @@ server = app.server
 # This will only be executed during debug when run locally, since WSGI does not 
 # run this as __main__ but only takes the "server" variable
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', port=8080)
+    # app.run_server(debug=True)
+
+# gunicorn mpivgae:server
