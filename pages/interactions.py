@@ -380,9 +380,9 @@ def updateGenecorr(fig, selGene, selMetric):
 def invertTabVisibility( _ , previousState):
     newState = not previousState
     if newState:
-        text = 'Collapse Gene Info'
+        text = 'Collapse Organism Genome Info'
         color = 'info'
     else:
-        text = 'Open Gene Info'
+        text = 'Open Organism Genome Info'
         color = 'primary'
     return newState, text, color

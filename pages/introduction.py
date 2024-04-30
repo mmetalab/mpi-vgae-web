@@ -50,7 +50,7 @@ layout = dbc.Container([
     lf.make_AboutUsOffCanvas(id),
     lf.make_MetricInfoModal(id),
     dbc.Row(lf.make_NavBar()),                  # Navigation Bar
-    dbc.Row(lf.make_WfaHeader(id)),             # Big header
+    dbc.Row(lf.make_IntroHeader(id)),             # Big header
 
     # First portion (anatomical explorer)
     dbc.Row([

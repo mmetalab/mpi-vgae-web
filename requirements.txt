@@ -62,4 +62,5 @@ pydantic == 2.6.3
 matplotlib == 3.8.3
 umap-learn == 0.5.5
 openpyxl == 3.1.2
-dash-bio==1.0.1
+dash-bio == 1.0.1
+py3Dmol == 2.1.0

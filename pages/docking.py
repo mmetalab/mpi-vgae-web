@@ -14,7 +14,7 @@ from utils import callbackFunctions as cf
 
 # id function that helps manage component id names. It pre-pends
 # the name of the page to a string so that writing ids specific for each page is easier 
-id = cf.id_factory('genes')          
+id = cf.id_factory('docking')          
 
 # Full path of the data folder where to load raw data
 dataFolder = Path(__file__).parent.parent.absolute() / 'data'
@@ -45,17 +45,36 @@ import dash_bio as dashbio
 from dash_bio.utils import PdbParser, create_mol3d_style
 import pandas as pd
 
-parser = PdbParser('./data/mpidatabase/4K8X.pdb')
+# Parse AutoDock Vina output file to extract docked poses
+def parse_vina_output(output_file):
+    # Parse the output file and extract the docked poses
+    # Return a list of poses (molecules or PDB blocks)
 
-data = parser.mol3d_data()
-styles = create_mol3d_style(
-    data['atoms'], visualization_type='cartoon', color_element='residue'
-)
+    # Example code to parse output file:
+    poses = []
+    with open(output_file, 'r') as f:
+        # Read lines from the output file and extract poses
+        # Example: parse each pose and convert it into RDKit Mol object or PDB block
+        for line in f:
+            if line.startswith('MODEL'):
+                pose = ''  # Start collecting the pose data
+            elif line.startswith('ENDMDL'):
+                poses.append(pose)  # Append the pose to the list
+            else:
+                pose += line  # Add line to the current pose data
 
-df = pd.DataFrame(data["atoms"])
-df = df.drop_duplicates(subset=['residue_name'])
-df['positions'] = df['positions'].apply(lambda x: ', '.join(map(str, x)))
+    return poses
 
+vina_output_file = './data/mpidatabase/DB00014_AF-P01704-F1-model.pdbqt'  # Adjust file path
+poses = parse_vina_output(vina_output_file)
+
+mets_dict = {
+             'DB0000177': 'DB0000177',
+             'DB0000036': 'DB0000036',
+             'DB0000251': 'DB0000251',
+             'DB0000684': 'DB0000684',}
+
+protein_dict = {'P07357': 'AF-P07357-F1-model_v4'}
 # ------------------------------------------------------------------------------
 # LAYOUT
 # ------------------------------------------------------------------------------
@@ -66,76 +85,60 @@ layout = dbc.Container([
     dbc.Row(lf.make_NavBar()),                  # Navigation Bar
     dbc.Row(lf.make_DockingHeader(id)),             # Big header
 
-    # # Second portion (Histogram)
     dbc.Row([lf.make_Subtitle('Explore MPI result')]),
-    dbc.Row([lf.make_dockingPlot(id,df,data,styles)]),
-
-    # dbc.Row([
-    #     dbc.Col(lf.make_GeneCorrSelectionMenu(id, geneDict['wfa_en']),
-    #         xs=12,lg=4, className='mt-5'
-    #     ),
-    #     dbc.Col(
-    #         dbc.Spinner(
-    #             dcc.Graph(
-    #                 figure=cf.make_GeneScatter(),
-    #                 id=id('corrPlot'), config={'displaylogo':False}, className='mt-3'),
-    #             color='primary'
-    #         )
-    #     )
-    # ]),
-
+    dbc.Row([
+        dbc.Col(lf.make_MPIVisualizationMenu(id, mets_dict, protein_dict),
+            xs=12,lg=4, className='mt-5'
+        ),
+        dbc.Col(
+            dbc.Spinner(
+                cf.make_DockPlot(id,poses)
+                ),
+        )
+        
+    ]),
+    html.Br(),
     # dbc.Row([lf.make_CollapsableTable(id)]),
     dbc.Row([lf.make_CC_licenseBanner(id)]),
     dbc.Row([],style={"margin-top": "500px"}),
 ])
 
-@callback(
-    Output(component_id=id('zooming-specific-molecule3d-zoomto'), component_property="zoomTo"),
-    Output(component_id=id('zooming-specific-molecule3d-zoomto'), component_property="labels"),
-    Input(component_id=id('zooming-specific-structure-table'), component_property="selected_rows"),
-    prevent_initial_call=True
-)
-
-def residue(selected_row):
-    row = df.iloc[selected_row]
-    row['positions'] = row['positions'].apply(lambda x: [float(x) for x in x.split(',')])
-    return [
-        {
-            "sel": {"chain": row["chain"], "resi": row["residue_index"]},
-            "animationDuration": 1500,
-            "fixedPath": True,
-        },
-        [
-            {
-                "text": "Residue Name: {}".format(row["residue_name"].values[0]),
-                "position": {
-                    "x": row["positions"].values[0][0],
-                    "y": row["positions"].values[0][1],
-                    "z": row["positions"].values[0][2],
-                },
-            }
-        ],
-    ]
-
+import py3Dmol
 
 @callback(
-    Output(component_id=id('corrPlot'), component_property='figure'),
-    Output(component_id=id('collps_Tab'), component_property='children'),
-    State(component_id=id('corrPlot'), component_property='figure'),
-    Input(component_id=id('drpD_geneSelect'), component_property='value'),
-    Input(component_id=id('drpD_metricSelector'), component_property='value'),
+    Output(component_id=id('poses'), component_property='data'),
+    Output(component_id=id('pdb'), component_property='data'),
+    Input(component_id=id('drpD_metSelect'), component_property='value'),
+    Input(component_id=id('drpD_ProteinSelect'), component_property='value'),
+    Input(component_id=id('dock-button'), component_property='n_clicks')
 )
-def updateGenecorr(fig, selGene, selMetric):
-    # Update the table with Gene info
-    g, geneName = cf.getGeneInfoTable(selMetric, selGene, geneDict)
-    tab = dbc.Table.from_dataframe(g, striped=True, bordered=True, hover=True)
+def updatePDB(selMet, selProtein, n_clicks):
+    if n_clicks > 0:
+        # Update the table with Gene info
+        # Load AutoDock Vina output file and parse docked poses
+        pdb1 = './data/mpidatabase/AF-%s-F1-model_v4.pdb' % selProtein
+        vina_output_file = './data/mpidatabase/%s_AF-%s-F1-model.pdbqt' % (selMet,selProtein)  # Adjust file path
+        poses = parse_vina_output(vina_output_file)
+        return poses, pdb1
 
-    metricData = cf.getMetricDf(selMetric, wfa, pv)
-    aggreDf = cf.combineGenesDf(selGene, metricData, ish_en, structuresDf)
-    fig = cf.update_GenesScatter(fig, aggreDf, structuresDf, geneName)
-
-    return fig, tab
-
+# Callback to update 3D molecular viewer
+@callback(
+    Output(component_id=id('mol-view'), component_property='children'),
+    # State(component_id=id('mol-view'), component_property='children'),
+    Input(component_id=id('poses'), component_property='data'),
+    Input(component_id=id('pose-selector'), component_property='value'),
+    Input(component_id=id('pdb'), component_property='data')
+)
+def update_viewer(poses,selected_pose,pdb):
+    view = py3Dmol.view(width=800, height=600)
+    view.addModel(open(pdb, 'r').read(),'pdb')
+    view.setStyle({'cartoon': {'color':'spectrum'}})
+    view.addModel(poses[0], 'pdb')
+    view.setStyle({'model':1},{'stick':{'colorscheme':'greenCarbon'}})
+    view.zoomTo()
+    # view.show()
+    return html.Iframe(srcDoc=view._make_html(), width='100%', height='600')
+    # return html.Div([html.H3(f'PDB ID: {selected_pose}'), html.Div(view.create_model(), style={'display': 'inline-block'})])
 
 @callback(
     Output(component_id=id('offCanv_cite'), component_property='is_open'),
@@ -171,7 +174,6 @@ def invertAboutusMenuVisibility(n_clicks, is_open):
     if n_clicks:
         return not is_open
     return is_open
-
 
 
 @callback(

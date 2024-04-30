@@ -42,7 +42,7 @@ coarseDict = cf.dataFrame_to_labelDict(D['coarse'],'coarse',structuresDf)
 midDict = cf.dataFrame_to_labelDict(D['mid'],'mid',structuresDf)
 fineDict = cf.dataFrame_to_labelDict(D['fine'],'fine',structuresDf)
 
-df = pd.read_csv('./data/mpidatabase/mpi_prediction.csv')
+df = pd.read_csv('./data/mpidatabase/mpi_db_v1.csv')
 
 # ------------------------------------------------------------------------------
 # LAYOUT
@@ -53,6 +53,7 @@ layout = dbc.Container([
     lf.make_MetricInfoModal(id),
     dbc.Row(lf.make_NavBar()),                  # Navigation Bar
     dbc.Row(lf.make_MPIDBHeader(id)),             # Big header
+    dbc.Row([lf.make_Subtitle('Enzymatic reaction database Information')]),
     lf.make_DatabaseInfo(id,df),
     # dbc.Row([lf.make_CollapsableTable(id)]),
     dbc.Row([lf.make_CC_licenseBanner(id)]),

@@ -53,7 +53,7 @@ def make_NavBar():
     )
     return navbar
 
-def make_WfaHeader(idFunc):
+def make_IntroHeader(idFunc):
     """
     Makes the header for the WFA page
     """
@@ -72,7 +72,7 @@ def make_WfaHeader(idFunc):
             ], className='d-flex mb-0'),
             dbc.Collapse(
                 html.Div([
-                    "This page shows intrdoduction to the project ",
+                    "This page shows introduction to the project ",
                     "MPI-VGAE.",
                     html.Br(),"For detailed information of the procedure, see ",
                     html.A("here", href="https://academic.oup.com/bib/article/24/4/bbad189/7176311", target="_blank")
@@ -111,7 +111,7 @@ def make_MPIDBHeader(idFunc):
                     "This page shows comprehensive information of metabolite-protein interaction information in different ",
                     "organisms", html.Br(), "Data (mean and SEM) come from seven mice.", 
                     html.Br(),"For detailed information of the procedure, see ",
-                    html.A("here", href="https://www.biorxiv.org/content/10.1101/2023.01.24.525313", target="_blank")
+                    html.A("here", href="https://academic.oup.com/bib/article/24/4/bbad189/7176311", target="_blank")
                 ]),
                 id=idFunc("moreInfoCollapse"),
                 is_open=False,
@@ -147,7 +147,7 @@ def make_DockingHeader(idFunc):
                     "This page shows interactive visualizations of MPI results.",
                     html.Br(), 
                     html.Br(),"For detailed information of the procedure, see ",
-                    html.A("here", href="https://www.biorxiv.org/content/10.1101/2023.01.24.525313", target="_blank")
+                    html.A("here", href="https://academic.oup.com/bib/article/24/4/bbad189/7176311", target="_blank")
                 ]),
                 id=idFunc("moreInfoCollapse"),
                 is_open=False,
@@ -160,44 +160,6 @@ def make_DockingHeader(idFunc):
         className="p-0 my-1",
     )
     return header
-
-def make_dockingPlot(idFunc,df,data,styles):
-    """
-    Makes the layout for the docking plot in the docking page
-    """
-    # dockingPlot = html.Div([
-    #     dcc.Graph(
-    #         id=idFunc('dockingPlot'),
-    #         config={'displayModeBar': False},
-    #         style={'height':'100%'}
-    #     )
-    # ])
-    layout = html.Div(
-        [
-            dash_table.DataTable(
-                id=idFunc("zooming-specific-residue-table"),
-                columns=[{"name": i, "id": i} for i in df.columns],
-                data=df.to_dict("records"),
-                row_selectable="single",
-                page_size=5,
-                style_cell={
-                'overflow': 'hidden',
-                'textOverflow': 'ellipsis',
-                'maxWidth': 0,
-                'font-family': "sans-serif",
-                },
-            ),
-            dashbio.Molecule3dViewer(
-                id=idFunc("zooming-specific-molecule3d-zoomto"),
-                modelData=data,
-                styles=styles,
-                selectionType='Chain',
-                height='600px',
-                width='100%',
-            ),
-        ]
-    )
-    return layout
 
 def make_introductionText():
     """
@@ -234,7 +196,7 @@ import pandas as pd
 
 def make_DatabaseInfo(idFunc,df):
     database = html.Div([
-        html.H6("Database Information", className='my-1'),
+        html.H6(" ", className='my-1'),
         dash_table.DataTable(
         df.to_dict('records'),
         [{"name": i, "id": i} for i in df.columns],
@@ -242,12 +204,13 @@ def make_DatabaseInfo(idFunc,df):
         sort_mode="multi",
         filter_action="native",
         filter_options={"placeholder_text": "Filter column..."},
-        page_size=10,
+        page_size=20,
         style_cell={
         'overflow': 'hidden',
         'textOverflow': 'ellipsis',
         'maxWidth': 0,
         'font-family': "sans-serif",
+        'textAlign': 'left',
         },
         tooltip_data=[
         {
@@ -282,12 +245,12 @@ def make_InteractionHeader(idFunc):
             ], className='d-flex mb-0'),
             dbc.Collapse(
                 html.Div([
-                    "This page shows interactive visualizations of gene expression data",
-                    "(from the Allen Institute ISH dataset) for all areas of the brain",
-                    " in correlation with WFA and PV metrics.",
+                    "This page shows the key process for predicting metabolite-protein interaction, ",
+                    "including the upload of metabolite and protein data, the prediction of interaction, ",
+                    "and the visualization of the result.",
                     html.Br(), 
                     html.Br(),"For detailed information of the procedure, see ",
-                    html.A("here", href="https://www.biorxiv.org/content/10.1101/2023.01.24.525313", target="_blank")
+                    html.A("here", href="https://academic.oup.com/bib/article/24/4/bbad189/7176311", target="_blank")
                 ]),
                 id=idFunc("moreInfoCollapse"),
                 is_open=False,
@@ -434,7 +397,7 @@ def make_MPISelectionMenu(idFunc, genome_dict, genesDf):
         ),
 
         html.Div([
-        dbc.Button("Open Genome Info",
+        dbc.Button("Open Organism Genome Info",
             id=idFunc("btn_openTabDiffuse"),
             className="mb-1",
             size='sm',
@@ -486,6 +449,41 @@ def MPI_CollapsableTable(idFunc):
     )
     return collapsTable
 
+def make_MPIVisualizationMenu(idFunc, mets_dict, protein_dict):
+    """
+    Makes the left-side menu with dropdowns for the histogram of the multiple staining metrics
+    """
+    menu = html.Div([
+        html.H6(["Select a Metabolite ID:"],className='my-1'),
+        dcc.Dropdown(
+            id=idFunc('drpD_metSelect'),
+            options=list(mets_dict.keys()),
+            value='DB0000177', # Default ID for Aggrecan
+            multi=False,
+            clearable=False,
+        ),
+        html.H6(["\n\n\n"],className='my-1'),
+        html.H6(["Select a Protein:"],className='my-1'),
+        dcc.Dropdown(
+            id=idFunc('drpD_ProteinSelect'),
+            options = list(protein_dict.keys()),
+            value='P07357', # Defaults to Isocortex
+            multi = False,
+            clearable=False,
+            className='my-1 mb-3'
+        ),
+        dbc.Button('Submit', id=idFunc('dock-button'), n_clicks=0),
+        dcc.Store(id=idFunc('pdb'),storage_type='local',data={}),
+        dcc.Store(id=idFunc('poses'),storage_type='local',data={}),
+        # TOOLTIPS
+        dbc.Tooltip("Select the metabolite that interact protein with.",
+            target=idFunc("drpD_metSelect"),placement="right"
+        ),
+        dbc.Tooltip("Select the protein to use for MPI visualization by molecular docking.",target=idFunc("drpD_ProteinSelect"),placement="right"),
+    ])
+    return menu
+
+
 def make_InteractionSelectionMenu(idFunc):
     """
     Makes the left-side menu of the correlation plot in the interaction page
@@ -502,7 +500,6 @@ def make_InteractionSelectionMenu(idFunc):
         {'label':'Cell Intensity','value':'intensity'},
     ]
 
-    
     menu = html.Div([
 
         # X AXIS
@@ -914,31 +911,19 @@ def make_CitationOffCanvas(idFunc):
 def make_AboutUsOffCanvas(idFunc):
     offcanvas = dbc.Offcanvas(
         html.P([
-            "This work was produced in Tommaso Pizzorusso's Lab thanks to the support of the following institutions: ",
+            "This work was produced in Cheng Wang's Lab thanks to the support of the following fundings: ",
             html.Br(),
             dbc.ListGroup([
                 dbc.ListGroupItem(
                     html.Div([
-                        "Scuola Normale Superiore",
-                        html.A(className="fa-solid fa-arrow-up-right-from-square px-3", href='https://www.sns.it/en', target='_blank')
+                        "National Natural Science Foundation of China",
+                        html.A(className="fa-solid fa-arrow-up-right-from-square px-3", href='https://www.nsfc.gov.cn/english/site_1/index.html', target='_blank')
                     ], className='d-flex w-100 justify-content-between align-items-center'),
                     className='rounded-3 py2'),
                 dbc.ListGroupItem(
                     html.Div([
-                        "Institute of Information Science and Technologies (ISTI-CNR)",
-                        html.A(className="fa-solid fa-arrow-up-right-from-square px-3", href='https://www.isti.cnr.it/en/', target='_blank')
-                    ], className='d-flex w-100 justify-content-between align-items-center'),
-                    className='rounded-3 py2'),
-                dbc.ListGroupItem(
-                    html.Div([
-                        "Institute of Neuroscience (IN-CNR)",
-                        html.A(className="fa-solid fa-arrow-up-right-from-square px-3", href='http://www.in.cnr.it/index.php/en/', target='_blank')
-                    ], className='d-flex w-100 justify-content-between align-items-center'),
-                    className='rounded-3 py2'),
-                dbc.ListGroupItem(
-                    html.Div([
-                        "University of Pisa",
-                        html.A(className="fa-solid fa-arrow-up-right-from-square px-3", href='https://www.unipi.it/index.php/english', target='_blank')
+                        "Shandong Natural Science Foundation",
+                        html.A(className="fa-solid fa-arrow-up-right-from-square px-3", href='http://kjt.shandong.gov.cn/', target='_blank')
                     ], className='d-flex w-100 justify-content-between align-items-center'),
                     className='rounded-3 py2'),
             ], flush=True, className='mt-5'),
@@ -1085,10 +1070,10 @@ def make_GeneInfoModal(idFunc):
     genesCard = dbc.Card([
         dbc.CardBody([
             # html.H5("Gene ID", className="card-title primary"),
-            html.P(html.I("Gene ID used in the AGEA dataset")),
+            html.P(html.I("Genome used for the MPI prediction")),
             html.Hr(className="mb-1"),
-            html.P(["As a measure of gene expression we use the metric ", html.B("expression energy"), 
-                " defined in Lein et al. 2007. "],
+            html.P(["As a prediction of metabolite-protein interaction for ", html.B("organism specific"), 
+                " as defined in Wang et al. 2023. "],
                 className="card-text")]
         )],
         style={'height':'100%'},
@@ -1097,7 +1082,7 @@ def make_GeneInfoModal(idFunc):
     )
 
     modal = dbc.Modal([
-            dbc.ModalHeader(dbc.ModalTitle("Gene ID")),
+            dbc.ModalHeader(dbc.ModalTitle("Select organism genome")),
             dbc.ModalBody([
                 dbc.Row([
                     dbc.Col([genesCard]),
