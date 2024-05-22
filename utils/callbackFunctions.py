@@ -304,16 +304,18 @@ import dash_bio as dashbio
 from dash import dcc, html
 
 
-def make_DockPlot(idFunc,poses):
+def make_DockPlot(idFunc):
 
     layout = html.Div([
-        html.H6('Select a pose to visualize:'),
-        dcc.Dropdown(
-            id=idFunc('pose-selector'),
-            options=[{'label': f'Pose {i+1}', 'value': i} for i in range(len(poses))],
-            value=0,
-            clearable=False
-        ),
+        html.Br(),
+        html.Br(),
+        html.H6('Visualization of the docked poses'),
+        # dcc.Dropdown(
+        #     id=idFunc('pose-selector'),
+        #     options=[{'label': f'Pose {i+1}', 'value': i} for i in range(len(poses))],
+        #     value=0,
+        #     clearable=False
+        # ),
         html.Div([html.Div(id=idFunc('mol-view'))]),
     ])
     return layout

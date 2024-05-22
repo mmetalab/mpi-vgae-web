@@ -61,7 +61,7 @@ def make_IntroHeader(idFunc):
     header = html.Div(
         dbc.Container([
             html.Div([
-                html.H2("Enzymatic reaction learning", className="display-4"),
+                html.H2("Enzymatic reaction link learning", className="display-4"),
                 dbc.Button("Cite", id=idFunc("btn_citeHeader"),color="success", outline=True)
             ], className='d-flex justify-content-between align-items-center mb-0'),
             
@@ -97,19 +97,19 @@ def make_MPIDBHeader(idFunc):
     header = html.Div(
         dbc.Container([
             html.Div([
-                html.H2("Enzymatic reaction database", className="display-4"),
+                html.H2("Enzymatic reaction link database", className="display-4"),
                 dbc.Button("Cite", id=idFunc("btn_citeHeader"),color="success", outline=True)
             ], className='d-flex justify-content-between align-items-center mb-0'),
             
             html.Hr(className="mt-0 mb-1"),
             html.Div([
-                html.P("An atlas for Metabolite-Protein Interaction across multiple organisms"),
+                html.P("An atlas for Metabolite-Protein Interaction across ten organisms"),
                 html.H4(id=idFunc('moreInfoIcon'), className="fa-solid fa-book-open ms-3 mt-1 primary")
             ], className='d-flex mb-0'),
             dbc.Collapse(
                 html.Div([
-                    "This page shows comprehensive information of metabolite-protein interaction information in different ",
-                    "organisms", html.Br(), "Data (mean and SEM) come from seven mice.", 
+                    "This page shows comprehensive information of metabolite-protein interaction information in ten different ",
+                    "organisms", html.Br(), "Data was collected come from HMDB, SMPDB, ChEMBL, KEGG databases.", 
                     html.Br(),"For detailed information of the procedure, see ",
                     html.A("here", href="https://academic.oup.com/bib/article/24/4/bbad189/7176311", target="_blank")
                 ]),
@@ -371,7 +371,7 @@ def make_InteractionTable(idFunc):
     ])
     return uploadTable
 
-def make_MPISelectionMenu(idFunc, genome_dict, genesDf):
+def make_MPISelectionMenu(idFunc, genome_dict):
     """
     Makes the left-side menu with dropdowns for the histogram of the multiple staining metrics
     """
@@ -458,7 +458,7 @@ def make_MPIVisualizationMenu(idFunc, mets_dict, protein_dict):
         dcc.Dropdown(
             id=idFunc('drpD_metSelect'),
             options=list(mets_dict.keys()),
-            value='DB0000177', # Default ID for Aggrecan
+            value='HMDB0001488', # Default ID
             multi=False,
             clearable=False,
         ),
@@ -467,7 +467,7 @@ def make_MPIVisualizationMenu(idFunc, mets_dict, protein_dict):
         dcc.Dropdown(
             id=idFunc('drpD_ProteinSelect'),
             options = list(protein_dict.keys()),
-            value='P07357', # Defaults to Isocortex
+            value='P53184', # Defaults
             multi = False,
             clearable=False,
             className='my-1 mb-3'

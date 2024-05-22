@@ -8,6 +8,8 @@ from utils import dataManager as dm
 from utils import layoutFunctions as lf
 from utils import callbackFunctions as cf
 
+import py3Dmol
+
 # ------------------------------------------------------------------------------
 # Initialize utility objects and useful functions
 # ------------------------------------------------------------------------------
@@ -18,25 +20,6 @@ id = cf.id_factory('docking')
 
 # Full path of the data folder where to load raw data
 dataFolder = Path(__file__).parent.parent.absolute() / 'data'
-
-# Load the Atlas dataFrame with all structures, acronyms, colors etc
-structuresDf = cf.loadStructuresDf(dataFolder/'structures.json')
-
-# ------------------------------------------------------------------------------
-# Load the necessary data
-# ------------------------------------------------------------------------------
-
-# Metrics data for WFA and PV
-wfa = dm.readMetricsDataForGenes(dataFolder/'originalData/data_SD1.xlsx')
-pv = dm.readMetricsDataForGenes(dataFolder/'originalData/data_SD2.xlsx')
-# Load Genes data
-geneDict = dm.readGenesCorrelationSupplData(dataFolder/'originalData/data_SD4.xlsx')
-# genesDf = df = pd.read_excel(dataFolder/'originalData/data_SD4.xlsx', header=0, index_col=0)
-
-# Load ISH data
-ish_en =  pd.read_csv(dataFolder/'gene_expression_ABA_energy.csv', index_col=0)
-ish_en.columns = pd.to_numeric(ish_en.columns)
-
 
 # ------------------------------------------------------------------------------
 
@@ -65,16 +48,22 @@ def parse_vina_output(output_file):
 
     return poses
 
-vina_output_file = './data/mpidatabase/DB00014_AF-P01704-F1-model.pdbqt'  # Adjust file path
-poses = parse_vina_output(vina_output_file)
+# vina_output_file = dataFolder/'mpidatabase/DB00014_AF-P01704-F1-model.pdbqt'  # Adjust file path
+# poses = parse_vina_output(vina_output_file)
 
-mets_dict = {
-             'DB0000177': 'DB0000177',
-             'DB0000036': 'DB0000036',
-             'DB0000251': 'DB0000251',
-             'DB0000684': 'DB0000684',}
+docking_db_file = dataFolder/'mpidatabase/Docking_DB.csv'
+docking_db = pd.read_csv(docking_db_file)
+protein_dict_uniprot_id = dict(zip(docking_db['Uniprot ID'].tolist(),docking_db['Uniprot ID'].tolist()))
+protein_dict_pdb_id = dict(zip(docking_db['PDB'].tolist(),docking_db['Uniprot ID'].tolist()))
+protein_dict_protein_name = dict(zip(docking_db['Protein Name'].tolist(),docking_db['Uniprot ID'].tolist()))
+protein_dict = {**protein_dict_protein_name,**protein_dict_uniprot_id,**protein_dict_pdb_id}
+uniprot_Id_dict = dict(zip(docking_db['Uniprot ID'].tolist(),docking_db['PDB'].tolist()))
 
-protein_dict = {'P07357': 'AF-P07357-F1-model_v4'}
+metabolite_dict_hmdb_id = dict(zip(docking_db['HMDB ID'].tolist(),docking_db['HMDB ID'].tolist()))
+metabolite_dict_metabolite_name = dict(zip(docking_db['Metabolite Name'].tolist(),docking_db['HMDB ID'].tolist()))
+metabolite_dict = {**metabolite_dict_metabolite_name,**metabolite_dict_hmdb_id}
+
+
 # ------------------------------------------------------------------------------
 # LAYOUT
 # ------------------------------------------------------------------------------
@@ -87,23 +76,21 @@ layout = dbc.Container([
 
     dbc.Row([lf.make_Subtitle('Explore MPI result')]),
     dbc.Row([
-        dbc.Col(lf.make_MPIVisualizationMenu(id, mets_dict, protein_dict),
+        dbc.Col(lf.make_MPIVisualizationMenu(id, metabolite_dict, protein_dict),
             xs=12,lg=4, className='mt-5'
         ),
         dbc.Col(
             dbc.Spinner(
-                cf.make_DockPlot(id,poses)
+                cf.make_DockPlot(id)
                 ),
         )
         
     ]),
     html.Br(),
-    # dbc.Row([lf.make_CollapsableTable(id)]),
     dbc.Row([lf.make_CC_licenseBanner(id)]),
     dbc.Row([],style={"margin-top": "500px"}),
 ])
 
-import py3Dmol
 
 @callback(
     Output(component_id=id('poses'), component_property='data'),
@@ -116,8 +103,13 @@ def updatePDB(selMet, selProtein, n_clicks):
     if n_clicks > 0:
         # Update the table with Gene info
         # Load AutoDock Vina output file and parse docked poses
-        pdb1 = './data/mpidatabase/AF-%s-F1-model_v4.pdb' % selProtein
-        vina_output_file = './data/mpidatabase/%s_AF-%s-F1-model.pdbqt' % (selMet,selProtein)  # Adjust file path
+        uniprotid = protein_dict[selProtein]
+        pdbid = uniprot_Id_dict[uniprotid]
+        hmdbid = metabolite_dict[selMet]
+        print(hmdbid,uniprotid,pdbid)
+        pdb1 = './data/mpidatabase/DockingDB/PDB/%s.pdb' % pdbid
+        vina_output_file = './data/mpidatabase/DockingDB/Docking/%s_%s_%s.pdbqt' % (hmdbid,uniprotid,pdbid)  # Adjust file path
+        print(vina_output_file)
         poses = parse_vina_output(vina_output_file)
         return poses, pdb1
 
@@ -126,10 +118,10 @@ def updatePDB(selMet, selProtein, n_clicks):
     Output(component_id=id('mol-view'), component_property='children'),
     # State(component_id=id('mol-view'), component_property='children'),
     Input(component_id=id('poses'), component_property='data'),
-    Input(component_id=id('pose-selector'), component_property='value'),
+    # Input(component_id=id('pose-selector'), component_property='value'),
     Input(component_id=id('pdb'), component_property='data')
 )
-def update_viewer(poses,selected_pose,pdb):
+def update_viewer(poses,pdb):
     view = py3Dmol.view(width=800, height=600)
     view.addModel(open(pdb, 'r').read(),'pdb')
     view.setStyle({'cartoon': {'color':'spectrum'}})

@@ -1,0 +1,115 @@
+Protein Name,Uniprot ID,Metabolite Name,HMDB ID,PDB,Affinity
+Glutamate decarboxylase 1,Q99259,Cysteic acid,HMDB0002757,3VP6,-4.8
+"Sterol-4-alpha-carboxylate 3-dehydrogenase, decarboxylating",Q15738,5α-cholesta-8-en-3-one,HMDB0012178,6JKH,-7.6
+Inositol monophosphatase 1,P29218,1D-myo-Inositol 3-phosphate,HMDB0006814,7VCE,-5.2
+Renin,Q63497,Angiotensin I,HMDB0061196,5MLG,-6.4
+cystathionine gamma-lyase,P31373,Ammonium,HMDB0041827,1N8P,-1.3
+Aromatic/aminoadipate aminotransferase 1,P53090,Oxoglutaric acid,HMDB0000208,4JE5,-1.3
+Cysteine sulfinic acid decarboxylase,Q9DBE0,Cysteic acid,HMDB0002757,7A0A,-3.2
+Serine--pyruvate aminotransferase,P21549,Pyruvic acid,HMDB0000243,7NS7,-4.3
+Putrescine aminotransferase,P42588,Oxoglutaric acid,HMDB0000208,5X3F,-2.3
+Chorismate--pyruvate lyase,P26602,4-Hydroxybenzoic acid,HMDB0000500,2AHC,-4.7
+Nitrite extrusion protein 2,P37758,Nitrate,HMDB0002878,4IU9,-3.7
+tryptophan aminotransferase,Q9S7N2,Oxoglutaric acid,HMDB0000208,3BWO,-4.0
+Amine oxidase [flavin-containing] A,P21397,Citalopram,HMDB0005038,2Z5Y,-6.2
+D-lactate dehydrogenase,P06149,Pyruvic acid,HMDB0000243,1F0X,-3.6
+Nicotinate-nucleotide pyrophosphorylase [carboxylating],P43619,Quinolinic acid,HMDB0000232,3C2V,-5.4
+Guanine deaminase,Q9Y2T3,Cytidine,HMDB0000089,4AQL,-5.6
+"6-phosphofructokinase, muscle type",P08237,"Fructose 1,6-bisphosphate",HMDB0001058,4OMT,-2.2
+Cytochrome P450 2B6,P20813,Nicotine,HMDB0001934,5WBG,-6.6
+Tyrosine aminotransferase,Q8QZR1,Oxoglutaric acid,HMDB0000208,3PDX,-4.4
+"Saccharopine dehydrogenase [NAD(+), L-lysine-forming]",P38998,Oxoglutaric acid,HMDB0000208,3UHA,-4.9
+Carbonyl reductase [NADPH] 1,P16152,6-Lactoyltetrahydropterin,HMDB0002065,4Z3D,-6.9
+"Lipoamide acyltransferase component of branched-chain alpha-keto acid dehydrogenase complex, mitochondrial",P11182,S-(2-Methylbutanoyl)-dihydrolipoamide,HMDB0006869,3RNM,-5.8
+"Sterol-4-alpha-carboxylate 3-dehydrogenase, decarboxylating",Q15738,4α-Carboxy-5α-cholesta-8-en-3β-ol,HMDB0012166,6JKH,-7.7
+Leucoanthocyanidin dioxygenase,Q96323,Oxoglutaric acid,HMDB0000208,2BRT,-4.1
+Gamma-butyrobetaine dioxygenase,O75936,Oxoglutaric acid,HMDB0000208,4CWD,-3.9
+Angiotensin-converting enzyme,P12821,Angiotensin I,HMDB0061196,8QHL,-8.6
+Phosphoserine aminotransferase,Q9Y617,Oxoglutaric acid,HMDB0000208,8A5W,-5.3
+Thiosulfate sulfurtransferase,Q5E9C5,Pyruvic acid,HMDB0000243,8Q5Z,-3.9
+"Lipoamide acyltransferase component of branched-chain alpha-keto acid dehydrogenase complex, mitochondrial",P11182,Isovaleryl-CoA,HMDB0001113,3RNM,-8.1
+Fructose-bisphosphate aldolase A,P04075,"Fructose 1,6-bisphosphate",HMDB0001058,6XMO,-5.1
+Cystathionine gamma-lyase,P32929,Pyruvic acid,HMDB0000243,6OVG,-3.7
+Isochorismatase,P0ADI4,Pyruvic acid,HMDB0000243,4IZ6,-4.3
+FOLic acid synthesis,P53848,Glycolaldehyde,HMDB0003344,2BMB,-3.0
+"Alpha-aminoadipic semialdehyde synthase, mitochondrial",Q9UDR5,Oxoglutaric acid,HMDB0000208,8E8V,-5.3
+"Phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit alpha isoform",Q0VGQ5,"PIP2[4,5](16:0/18:1(9Z)) ",HMDB0061188,4A55,-6.1
+Glutamate racemase,P22634,D-Glutamic acid,HMDB0003339,2JFN,-4.2
+2-dehydro-3-deoxy-6-phosphogalactonate aldolase,Q6BF16,Pyruvic acid,HMDB0000243,4QCC,-4.5
+Renin,P00797,Angiotensin I,HMDB0061196,7XGP,-9.5
+Fructose-bisphosphate aldolase,Q9VBG3,"Fructose 1,6-bisphosphate",HMDB0001058,1FBA,-7.4
+2-succinyl-5-enolpyruvyl-6-hydroxy-3-cyclohexene-1-carboxylate synthase,P17109,Oxoglutaric acid,HMDB0000208,5Z2U,-6.0
+Porphobilinogen deaminase,P06983,Hydroxymethylbilane,HMDB0001137,2YPN,-7.2
+Alanine aminotransferase 2,Q8TD30,Oxoglutaric acid,HMDB0000208,3IHJ,-3.8
+"Ornithine aminotransferase, mitochondrial",P04181,Oxoglutaric acid,HMDB0000208,8EZ1,-5.4
+"Reactive Intermediate Deaminase A, chloroplastic",Q94JQ4,Ammonium,HMDB0041827,5HP8,-1.2
+"3-ketoacyl-CoA thiolase, mitochondrial",P42765,Octanoyl-CoA,HMDB0001070,4C2K,-7.5
+Nicotinate-nucleotide pyrophosphorylase [carboxylating],Q15274,Quinolinic acid,HMDB0000232,5AYZ,-7.0
+Sepiapterin reductase,Q63996,6-Lactoyltetrahydropterin,HMDB0002065,1SEP,-4.7
+"Phytanoyl-CoA dioxygenase, peroxisomal",O14832,Oxoglutaric acid,HMDB0000208,2A1X,-4.2
+"GTP:AMP phosphotransferase AK3, mitochondrial",Q29RI4,3'-AMP,HMDB0003540,2AK3,-6.1
+4-hydroxy-tetrahydrodipicolinate synthase,D1MH64,Pyruvic acid,HMDB0000243,6P90,-4.5
+Alanine aminotransferase 2,Q8TD30,Pyruvic acid,HMDB0000243,3IHJ,-3.3
+Dopamine beta-hydroxylase,Q05754,Norepinephrine,HMDB0000216,1ZHB,-5.2
+aminodeoxychorismate lyase,Q03266,p-Aminobenzoic acid,HMDB0001392,4K6N,-4.8
+3-alpha-hydroxysteroid dehydrogenase,Q6LDE7,"17a,21-Dihydroxy-5b-pregnane-3,11,20-trione",HMDB0006758,1RAL,-6.8
+Cytochrome P450 2C19,P33261,Citalopram,HMDB0005038,4GQS,-6.3
+Uroporphyrinogen-III synthase,P10746,Hydroxymethylbilane,HMDB0001137,1JR2,-4.1
+Steroid 21-hydroxylase,P08686,"17α,21-Dihydroxypregnenolone",HMDB0006762,5VBU,-8.7
+Steroid 21-hydroxylase,P00191,"17α,21-Dihydroxypregnenolone",HMDB0006762,3QZ1,-9.0
+FOLic acid synthesis,P53848,p-Aminobenzoic acid,HMDB0001392,2BMB,-4.7
+"LL-diaminopimelate aminotransferase, chloroplastic",Q93ZN9,Oxoglutaric acid,HMDB0000208,3EIB,-4.7
+Glutathione peroxidase 1,A6QPG3,5-HETE,HMDB0011134,1GP1,-3.6
+Outer membrane protein A,P0A910,Palmitic acid,HMDB0000220,6LYR,-4.6
+Cytochrome P450 1A2,P05177,didesmethylclomipramine,HMDB0061205,2HI4,-7.3
+Cytosolic purine 5'-nucleotidase,P49902,Deoxyguanosine,HMDB0000085,6FXH,-6.4
+Aminodeoxychorismate lyase,P28305,p-Aminobenzoic acid,HMDB0001392,1I2L,-5.9
+Selenocysteine lyase,Q68FT9,Hydrogen selenide,HMDB0011110,3A9Z,-0.8
+Porphobilinogen deaminase,P06983,Ammonium,HMDB0041827,2YPN,-1.5
+L-serine dehydratase/L-threonine deaminase,P20132,Pyruvic acid,HMDB0000243,4H27,-3.7
+Allantoate amidohydrolase,P77425,Ammonium,HMDB0041827,4PXD,-1.5
+Renin-1,Q62154,Angiotensin I,HMDB0061196,5MKT,-7.2
+Cysteine sulfinic acid decarboxylase,Q9DBE0,Taurine,HMDB0000251,7A0A,-2.7
+Amine oxidase [flavin-containing] A,P21397,Norepinephrine,HMDB0000216,2Z5Y,-6.5
+NADP-dependent malic enzyme,P48163,Pyruvic acid,HMDB0000243,7X12,-4.4
+Trifunctional purine biosynthetic protein adenosine-3,P22102,Glycineamideribotide,HMDB0002022,8FJY,-5.3
+"Lipoamide acyltransferase component of branched-chain alpha-keto acid dehydrogenase complex, mitochondrial",A7YWE9,S-(2-Methylbutanoyl)-dihydrolipoamide,HMDB0006869,2II5,-5.0
+Serine--glyoxylate aminotransferase,Q56YA5,Pyruvic acid,HMDB0000243,6PK3,-3.7
+Glutamate decarboxylase 1,Q99259,Taurine,HMDB0000251,3VP6,-4.0
+"Isovaleryl-CoA dehydrogenase, mitochondrial",P26440,Isovaleryl-CoA,HMDB0001113,1IVH,-6.6
+cystathionine gamma-lyase,P31373,Pyruvic acid,HMDB0000243,1N8P,-3.4
+Phosphatidylinositol-5-phosphate 4-kinase type-2 alpha,P48426,"PIP2[4,5](16:0/18:1(9Z)) ",HMDB0061188,8C8C,-6.7
+Chorismate--pyruvate lyase,P26602,Pyruvic acid,HMDB0000243,2AHC,-4.2
+L-serine dehydratase/L-threonine deaminase,Q5M8C4,Pyruvic acid,HMDB0000243,1PWH,-2.9
+AMP deaminase,O80452,Ammonium,HMDB0041827,2A3L,-1.5
+Phenylethanolamine N-methyltransferase,P11086,Norepinephrine,HMDB0000216,7TX2,-4.5
+"Glutamate dehydrogenase 1, mitochondrial",Q8HZ49,Oxoglutaric acid,HMDB0000208,8EW0,-5.2
+"Fructose-1,6-bisphosphatase 1",P09467,"Fructose 1,6-bisphosphate",HMDB0001058,7WVB,-6.0
+"Lipoamide acyltransferase component of branched-chain alpha-keto acid dehydrogenase complex, mitochondrial",A7YWE9,Isovaleryl-CoA,HMDB0001113,2II5,-6.8
+Acetylcholinesterase,Q9VFY0,Choline,HMDB0000097,6XYY,-2.7
+ureidoglycine aminohydrolase,Q680J5,Ammonium,HMDB0041827,4E2S,-1.4
+Aminodeoxychorismate lyase,P28305,Pyruvic acid,HMDB0000243,1I2L,-4.5
+Nicotinamidase,P53184,Nicotinic acid,HMDB0001488,3V8E,-2.9
+aminodeoxychorismate lyase,Q03266,Pyruvic acid,HMDB0000243,4K6N,-3.9
+Nucleoside permease nupG,P0AFF4,Cytidine,HMDB0000089,7DLA,-6.3
+5-keto-4-deoxy-D-glucarate aldolase,P23522,Pyruvic acid,HMDB0000243,1DXF,-2.9
+"Aldehyde dehydrogenase, mitochondrial",Q91ZD7,Indoleacetic acid,HMDB0000197,5AZ8,-7.3
+"Aspartate aminotransferase, mitochondrial",Q5HZH5,Oxoglutaric acid,HMDB0000208,3PDB,-4.6
+"Aspartate aminotransferase, mitochondrial",P00505,Oxoglutaric acid,HMDB0000208,5AX8,-4.5
+Lipoprotein lipase,P06858,Palmitic acid,HMDB0000220,6WN4,-3.8
+"Isocitrate dehydrogenase [NADP], mitochondrial",P21954,Oxoglutaric acid,HMDB0000208,2QFY,-4.7
+Thymidine phosphorylase,P19971,5-Deoxyribose-1-phosphate,HMDB0060393,2WK6,-4.1
+Cytochrome P450 2B6,P20813,"14,15-Epoxy-5,8,11-eicosatrienoic acid",HMDB0004264,5WBG,-5.6
+Nicotinamidase,P53184,Ammonium,HMDB0041827,3V8E,-0.9
+Alanine--glyoxylate aminotransferase 1,P43567,Pyruvic acid,HMDB0000243,2BKW,-3.7
+"Reactive Intermediate Deaminase A, chloroplastic",Q94JQ4,Pyruvic acid,HMDB0000243,5HP8,-4.0
+Cytochrome P450 3A5,P20815,Dihydroartemisinin (DHA),HMDB0061088,5VEU,-6.8
+Palmitoyl-protein thioesterase 1,P50897,Palmitic acid,HMDB0000220,3GRO,-4.4
+Cytosolic purine 5'-nucleotidase,P49902,Cytidine,HMDB0000089,6FXH,-4.9
+3-mercaptopyruvate sulfurtransferase,P31142,Pyruvic acid,HMDB0000243,1URH,-2.6
+Selenocysteine lyase,Q96I15,Hydrogen selenide,HMDB0011110,3GZD,-0.8
+Sepiapterin reductase,P35270,6-Lactoyltetrahydropterin,HMDB0002065,7DSF,-6.2
+"Medium-chain specific acyl-CoA dehydrogenase, mitochondrial",P11310,Isovaleryl-CoA,HMDB0001113,4P13,-7.6
+"Aldehyde dehydrogenase, mitochondrial",Q91ZD7,Pyruvic acid,HMDB0000243,5AZ8,-4.5
+Pyruvate kinase PKLR,Q64618,Pyruvic acid,HMDB0000243,6ECK,-2.8
+Isocitrate dehydrogenase [NADP] cytoplasmic,Q3UAV7,Oxoglutaric acid,HMDB0000208,5YZI,-5.3

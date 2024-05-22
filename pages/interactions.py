@@ -20,23 +20,6 @@ id = cf.id_factory('interactions')
 # Full path of the data folder where to load raw data
 dataFolder = Path(__file__).parent.parent.absolute() / 'data'
 
-# Load the Atlas dataFrame with all structures, acronyms, colors etc
-structuresDf = cf.loadStructuresDf(dataFolder/'structures.json')
-
-# ------------------------------------------------------------------------------
-# Load the necessary data
-# ------------------------------------------------------------------------------
-
-# Metrics data for WFA and PV
-wfa = dm.readMetricsDataForGenes(dataFolder/'originalData/data_SD1.xlsx')
-pv = dm.readMetricsDataForGenes(dataFolder/'originalData/data_SD2.xlsx')
-# Load Genes data
-geneDict = dm.readGenesCorrelationSupplData(dataFolder/'originalData/data_SD4.xlsx')
-# genesDf = df = pd.read_excel(dataFolder/'originalData/data_SD4.xlsx', header=0, index_col=0)
-
-# Load ISH data
-ish_en =  pd.read_csv(dataFolder/'gene_expression_ABA_energy.csv', index_col=0)
-ish_en.columns = pd.to_numeric(ish_en.columns)
 
 # ------------------------------------------------------------------------------
 # Perform some preprocessing
@@ -77,7 +60,7 @@ layout = dbc.Container([
     html.Br(),
     dbc.Row([lf.make_Subtitle('Molecular Feature Visualization')]),
     dbc.Row([
-        dbc.Col(lf.make_MPISelectionMenu(id, genome_dict, geneDict['wfa_en']),
+        dbc.Col(lf.make_MPISelectionMenu(id, genome_dict),
             xs=12,lg=4, className='mt-5'
         ),
         dbc.Col(
@@ -349,40 +332,3 @@ def invertAboutusMenuVisibility(n_clicks, is_open):
     if n_clicks:
         return not is_open
     return is_open
-
-
-@callback(
-    Output(component_id=id('corrPlot'), component_property='figure'),
-    Output(component_id=id('collps_Tab'), component_property='children'),
-    State(component_id=id('corrPlot'), component_property='figure'),
-    Input(component_id=id('drpD_geneSelect'), component_property='value'),
-    Input(component_id=id('drpD_metricSelector'), component_property='value'),
-)
-def updateGenecorr(fig, selGene, selMetric):
-    # Update the table with Gene info
-    g, geneName = cf.getGeneInfoTable(selMetric, selGene, geneDict)
-    tab = dbc.Table.from_dataframe(g, striped=True, bordered=True, hover=True)
-
-    metricData = cf.getMetricDf(selMetric, wfa, pv)
-    aggreDf = cf.combineGenesDf(selGene, metricData, ish_en, structuresDf)
-    fig = cf.update_GenesScatter(fig, aggreDf, structuresDf, geneName)
-
-    return fig, tab
-
-@callback(
-    Output(component_id=id('collps_Tab'), component_property='is_open'),
-    Output(component_id=id('btn_openTabDiffuse'), component_property='children'),
-    Output(component_id=id('btn_openTabDiffuse'), component_property='color'),
-    Input(component_id=id('btn_openTabDiffuse'),component_property='n_clicks'),
-    State(component_id=id('collps_Tab'), component_property='is_open'),
-    prevent_initial_call=True
-)
-def invertTabVisibility( _ , previousState):
-    newState = not previousState
-    if newState:
-        text = 'Collapse Organism Genome Info'
-        color = 'info'
-    else:
-        text = 'Open Organism Genome Info'
-        color = 'primary'
-    return newState, text, color

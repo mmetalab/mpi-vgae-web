@@ -1,0 +1,99 @@
+MODEL 1
+REMARK VINA RESULT:      -0.8      0.000      0.000
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1      25.478  14.194  19.380  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1      25.239  15.656  19.789  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1      25.009  13.714  20.763  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL
+MODEL 2
+REMARK VINA RESULT:      -0.8     36.318     36.318
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1      -5.368  12.353   0.297  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1      -6.221  11.090   0.101  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1      -6.637  13.198   0.495  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL
+MODEL 3
+REMARK VINA RESULT:      -0.7     36.438     36.438
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1       5.373 -11.846   3.713  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1       6.347 -13.035   3.734  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1       4.287 -12.704   4.382  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL
+MODEL 4
+REMARK VINA RESULT:      -0.7     39.769     39.769
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1      -5.167  -1.396  -0.605  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1      -6.682  -1.608  -0.457  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1      -5.272  -0.039   0.109  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL
+MODEL 5
+REMARK VINA RESULT:      -0.7     31.478     31.478
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1       5.243   1.147  -0.898  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1       5.004   2.609  -0.490  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1       4.774   0.667   0.484  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL
+MODEL 6
+REMARK VINA RESULT:      -0.7     36.239     36.239
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1       4.572  -6.714  -1.573  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1       3.719  -7.978  -1.770  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1       3.303  -5.870  -1.376  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL
+MODEL 7
+REMARK VINA RESULT:      -0.7     38.517     38.517
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1      -4.498   5.886  -3.336  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1      -5.801   6.558  -2.875  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1      -3.686   7.101  -2.861  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL
+MODEL 8
+REMARK VINA RESULT:      -0.7     27.615     27.615
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1       4.336  -3.196  15.743  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1       4.098  -1.734  16.151  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1       3.867  -3.675  17.126  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL
+MODEL 9
+REMARK VINA RESULT:      -0.7     38.324     38.324
+REMARK  0 active torsions:
+REMARK  status: ('A' for Active; 'I' for Inactive)
+ROOT
+ATOM      1 SE   UNL d   1      -3.250  -0.541  -1.268  0.00  0.00     0.000 Se
+ATOM      2  H   UNL d   1      -4.765  -0.753  -1.120  0.00  0.00     0.000 HD
+ATOM      3  H   UNL d   1      -3.354   0.816  -0.554  0.00  0.00     0.000 HD
+ENDROOT
+TORSDOF 0
+ENDMDL

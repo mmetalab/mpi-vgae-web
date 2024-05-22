@@ -20,29 +20,7 @@ id = cf.id_factory('database')
 # Full path of the data folder where to load raw data
 dataFolder = Path(__file__).parent.parent.absolute() / 'data'
 
-# Load the Atlas dataFrame with all structures, acronyms, colors etc
-structuresDf = cf.loadStructuresDf(dataFolder/'structures.json')
-
-# ------------------------------------------------------------------------------
-# Load the necessary data
-# ------------------------------------------------------------------------------
-
-# Metrics data for WFA
-D = dm.readSupplDataMetrics(dataFolder/'originalData/data_SD2.xlsx', removeAcronyms=True)
-
-# Coronal Slice Coordinates
-coronalCoordDfList = cf.loadAllSlices(dataFolder/'coordinates')
-
-# ------------------------------------------------------------------------------
-# Perform some preprocessing
-# ------------------------------------------------------------------------------
-
-# Create lists of dictionaries {label:areaName, value=areaID} for populating dropDowns
-coarseDict = cf.dataFrame_to_labelDict(D['coarse'],'coarse',structuresDf)
-midDict = cf.dataFrame_to_labelDict(D['mid'],'mid',structuresDf)
-fineDict = cf.dataFrame_to_labelDict(D['fine'],'fine',structuresDf)
-
-df = pd.read_csv('./data/mpidatabase/mpi_db_v1.csv')
+df = pd.read_csv(dataFolder/'mpidatabase/MPIDB_May2024.csv')
 
 # ------------------------------------------------------------------------------
 # LAYOUT
@@ -55,7 +33,6 @@ layout = dbc.Container([
     dbc.Row(lf.make_MPIDBHeader(id)),             # Big header
     dbc.Row([lf.make_Subtitle('Enzymatic reaction database Information')]),
     lf.make_DatabaseInfo(id,df),
-    # dbc.Row([lf.make_CollapsableTable(id)]),
     dbc.Row([lf.make_CC_licenseBanner(id)]),
     dbc.Row([],style={"margin-top": "500px"}),
 ])
@@ -64,92 +41,6 @@ layout = dbc.Container([
 # ------------------------------------------------------------------------------
 # CALLBACKS
 # ------------------------------------------------------------------------------
-
-@callback(
-    Output(component_id=id('hist_diffuse'), component_property='figure'),
-    Output(component_id=id('collps_Tab'), component_property='children'),
-    Input(component_id=id('drpD_histogMetric'), component_property='value'),
-    Input(component_id=id('drpD_majorSubd'), component_property='value'),
-    Input(component_id=id('drpD_addCoarse'), component_property='value'),
-    Input(component_id=id('drpD_addMid'), component_property='value'),
-    Input(component_id=id('drpD_addFine'), component_property='value'),
-    Input(component_id=id('switch_sortDiff'), component_property='value')
-)
-def updateHistogram(selMetric, maj_sel, addC_sel, addM_sel, addF_sel, sortRegions):
-    """
-    Update the diffuse fluorescence histogram
-    """
-    # Filter data for the selected metric only
-    slicedCoarse = D['coarse'].xs(selMetric, axis=1, level='params')
-    slicedMid = D['mid'].xs(selMetric, axis=1, level='params')
-    slicedFine = D['fine'].xs(selMetric, axis=1, level='params')
-    # Combine data from all the area selected from multiple menus
-    combinedDf = cf.combineDiffuseDataframes(maj_sel,addC_sel,addM_sel,addF_sel,
-        slicedCoarse,
-        slicedMid,
-        slicedFine)
-    # Aggregate to calculate Mean and SEM
-    aggrDf = cf.aggregateFluoDataframe(combinedDf, structuresDf)
-    if sortRegions:
-        aggrDf = aggrDf.sort_values(by='mean',ascending=False)
-
-    # Create a new visualization and table and return them
-    fig = cf.update_diffuseFluoHistogram(aggrDf, selMetric, 'pv')
-    tab = dbc.Table.from_dataframe(aggrDf.drop(columns=['color']), striped=True, bordered=True, hover=True)
-    return fig, tab
-
-
-@callback(
-    Output(component_id=id('scatterSlice'), component_property='figure'),
-    State(component_id=id('scatterSlice'), component_property='figure'),
-    Input(component_id=id('drpD_anatomMetric'),component_property='value'),
-    Input(component_id=id('drpD_anatomCmap'),component_property='value'),
-    Input(component_id=id('slider_ap'),component_property='value'),
-)
-def updateAnatomicalExplorer(fig, selMetric, cmap, apIdx):
-    """
-    Update the anatomical explore plot with the data selected from the multiple
-    sliders and dropdown menus on the left.
-    """
-    # Select which dataset to show
-    data = D['mid'].xs(selMetric, axis=1, level='params')
-    # Get the correct limits to the colormap
-    min, max, = cf.getClimsAnatomicalExplorer(selMetric, staining='pv')
-
-    df = cf.mergeCoordinatesAndData(coronalCoordDfList[apIdx], data)
-    fig = cf.redrawAnatExplorerScatter(fig, df, cmap, min, max)
-
-    return fig
-
-
-@callback(
-    Output(component_id=id('collps_Tab'), component_property='is_open'),
-    Output(component_id=id('btn_openTabDiffuse'), component_property='children'),
-    Output(component_id=id('btn_openTabDiffuse'), component_property='color'),
-    Input(component_id=id('btn_openTabDiffuse'),component_property='n_clicks'),
-    State(component_id=id('collps_Tab'), component_property='is_open'),
-    prevent_initial_call=True
-)
-def invertTabVisibility( _ , previousState):
-    newState = not previousState
-    if newState:
-        text = 'Collapse Tabular Data'
-        color = 'info'
-    else:
-        text = 'Open Tabular Data'
-        color = 'primary'
-    return newState, text, color
-    
-
-@callback(
-    Output(component_id=id('drpD_addCoarse'), component_property='value'),
-    Input(component_id=id('btn_allMajorDiff'),component_property='n_clicks'),
-    prevent_initial_call=True
-)
-def addAllCoarseDiffuse(n_clicks):
-    coarseIDs = [x['value'] for x in coarseDict]
-    return coarseIDs
-
 
 @callback(
     Output(component_id=id('offCanv_cite'), component_property='is_open'),
